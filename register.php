@@ -26,7 +26,7 @@
         </div>
     </nav>
     <form class="mt-3 px-5" method="post">
-        <h2>register form</h2>
+        <h2>Register form</h2>
         <div class="mb-3">
             <label for="exampleInputEmail1" class="form-label">Name</label>
             <input type="text" name="user" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
@@ -40,7 +40,7 @@
             <input type="password" name="pass" class="form-control" id="exampleInputPassword1">
             <div id="emailHelp" class="form-text">minimum 8 characters</div>
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-primary" name="sub">Submit</button>
     </form>
 
 </body>
@@ -51,10 +51,11 @@
 <?php
 $server = mysqli_connect("localhost", "root", "", "login-page");
 
-if (isset($_post["sub"])) {
-    $name = $_post["user"];
-    $password = $_post["pass"];
-    mysqli_query($server, "insert into register values('$name','$password')");
+if (isset($_POST["sub"])) {
+    $name = $_POST["user"];
+    $email = $_POST["email"];
+    $password = $_POST["pass"];
+    mysqli_query($server, "insert into register values('$name','$password','$email')");
     echo "<script>alert('successfully done')</script>";
 }
 
