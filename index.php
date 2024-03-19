@@ -37,9 +37,9 @@
         <div class="mb-3">
             <label for="exampleInputPassword1" class="form-label">Password</label>
             <input type="password" name="pass" class="form-control" id="exampleInputPassword1">
-            <div id="emailHelp" class="form-text">minimum 8 character</div>       
+            <div id="emailHelp" class="form-text">minimum 8 character</div>
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" name="sub" class="btn btn-primary">Submit</button>
     </form>
 
 </body>
@@ -50,12 +50,17 @@
 <?php
 $server = mysqli_connect("localhost", "root", "", "login-page");
 
-if (isset($_post["sub"])) {
-    $name = $_post["user"];
-    $password = $_post["pass"];
-    mysqli_query($server, "insert into register values('$name','$password')");
-    echo "<script>alert('successfully done')</script>";
-}
+if (isset($_POST["sub"])) {
+    $email = $_POST["user"];
+    $password = $_POST["pass"];
 
+    $query = mysqli_query($server, "(select * from register where email='$email' and password='$password')");
+
+    if (mysqli_num_rows($query) != 0) {
+        echo "<script>alert('login sucessful')</script>";
+    } else {
+        echo "<script>alert('login failed')</script>";
+    }
+}
 
 ?>
