@@ -33,11 +33,11 @@
         </div>
         <div class="mb-3">
             <label for="exampleInputEmail1" class="form-label">Email address</label>
-            <input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+            <input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
         </div>
         <div class="mb-3">
             <label for="exampleInputPassword1" class="form-label">Password</label>
-            <input type="password" name="pass" class="form-control" id="exampleInputPassword1">
+            <input type="password" name="pass" class="form-control" id="exampleInputPassword1" minlength="8" required>
             <div id="emailHelp" class="form-text">minimum 8 characters</div>
         </div>
         <button type="submit" class="btn btn-primary" name="sub">Submit</button>
@@ -55,8 +55,13 @@ if (isset($_POST["sub"])) {
     $name = $_POST["user"];
     $email = $_POST["email"];
     $password = $_POST["pass"];
-    mysqli_query($server, "insert into register values('$name','$password','$email')");
-    echo "<script>alert('successfully done')</script>";
+
+    if (!empty($email) && !empty($password)) {
+        mysqli_query($server, "insert into register values('$name','$password','$email')");
+        echo "<script>alert('successfully done')</script>";
+    } else {
+        echo "<script>alert ('invalid')</script>";
+    }
 }
 
 ?>

@@ -32,11 +32,11 @@
         <h2>login form</h2>
         <div class="mb-3">
             <label for="exampleInputEmail1" class="form-label">Email address</label>
-            <input type="email" name="user" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+            <input type="email" name="user" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
         </div>
         <div class="mb-3">
             <label for="exampleInputPassword1" class="form-label">Password</label>
-            <input type="password" name="pass" class="form-control" id="exampleInputPassword1">
+            <input type="password" name="pass" class="form-control" id="exampleInputPassword1" required>
             <div id="emailHelp" class="form-text">minimum 8 character</div>
         </div>
         <button type="submit" name="sub" class="btn btn-primary">Submit</button>
@@ -54,12 +54,17 @@ if (isset($_POST["sub"])) {
     $email = $_POST["user"];
     $password = $_POST["pass"];
 
-    $query = mysqli_query($server, "(select * from register where email='$email' and password='$password')");
+    if (!empty($email) && !empty($password)) {
 
-    if (mysqli_num_rows($query) != 0) {
-        echo "<script>alert('login sucessful')</script>";
+        $query = mysqli_query($server, "(select * from register where email='$email' and password='$password')");
+
+        if (mysqli_num_rows($query) != 0) {
+            echo "<script>alert('login successful')</script>";
+        } else {
+            echo "<script>alert('login failed')</script>";
+        }
     } else {
-        echo "<script>alert('login failed')</script>";
+        echo "<script>alert('invalid')</script>";
     }
 }
 
