@@ -63,9 +63,8 @@ if (isset($_POST["sub"])) {
             if (password_verify($password, $row['password'])) {
                 echo "<script>alert('login successful')</script>";
             } else {
-                echo"<script>wrong password</script>";
+                echo "<script>alert('wrong password')</script>";
             }
-            
         } else {
             echo "<script>alert('login failed')</script>";
         }
