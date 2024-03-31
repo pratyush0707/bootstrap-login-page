@@ -56,8 +56,10 @@ if (isset($_POST["sub"])) {
     $email = $_POST["email"];
     $password = $_POST["pass"];
 
+    $hash = password_hash($password, PASSWORD_DEFAULT);
+
     if (!empty($email) && !empty($password)) {
-        mysqli_query($server, "insert into register values('$name','$password','$email')");
+        mysqli_query($server, "insert into register values('$name','$hash','$email')");
         echo "<script>alert('successfully done')</script>";
     } else {
         echo "<script>alert ('invalid')</script>";

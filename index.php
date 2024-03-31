@@ -56,10 +56,16 @@ if (isset($_POST["sub"])) {
 
     if (!empty($email) && !empty($password)) {
 
-        $query = mysqli_query($server, "(select * from register where email='$email' and password='$password')");
+        $query = mysqli_query($server, "(select password from register where email='$email')");
 
         if (mysqli_num_rows($query) != 0) {
-            echo "<script>alert('login successful')</script>";
+            $row = $query->fetch_assoc();
+            if (password_verify($password, $row['password'])) {
+                echo "<script>alert('login successful')</script>";
+            } else {
+                echo"<script>wrong password</script>";
+            }
+            
         } else {
             echo "<script>alert('login failed')</script>";
         }
